@@ -5,22 +5,72 @@
         <base href="<?php echo strip_tags($request_url); ?>" />
         <title><?php echo mb_convert_encoding($title, "HTML-ENTITIES", "UTF-8"); ?> - Gracecode.com</title>
         <?php include DIR_ROOT . '/template/header.inc.html'; ?>
+        <style type="text/css" media="all">
+.article{position:relative;padding:20px}.article h1,.article h2,.article h3,.article h4,.article h5{color:#800;padding:5px 0;font-weight:normal}.article h1{font-size:1.4em}.article h1:first-child{font-size:1.8em;text-align:right}.article h2{font-size:1.3em}.article h3{font-size:1.2em}.article h4{font-size:1.1em}.article h5{font-size:1em}.article p{text-align:left;margin:.5em 0;line-height:1.7em;text-indent:2em}.article p.metas{font-size:1.1em;padding:0 .2em 2em 0;color:#5a564d;text-align:right}.article p img{margin:0 auto;border:1px solid #eee;padding:.5em;background:#fff;max-width:85%;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px}.article pre,.article code{font:.9em Monospace,"Courier New",sans-serif;padding:.5em;font-weight:normal;background:#eee;margin:.5em 2em;overflow-x:auto;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px}.article p code,.article pre code{background:0;margin:0;padding:0}.article ul,.article ol{margin:0 2em;list-style-position:inside}.article ul{list-style-type:circle}.article ol{list-style-type:decimal} 
+        </style>
     </head>
-    <body class="bg">
-        <header>
-            <h1 id="logo"><a href=".">無標題文檔</a></h1>
-            <a href="https://github.com/feelinglucky/php-readability"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
-        </header>
+    <body class="bg" id="main">
+        <div class="read">
+            <article class="article body"> 
+                <h1><a title="back to original page" href="<?php echo strip_tags($request_url); ?>"><?php echo mb_convert_encoding($title, 'HTML-ENTITIES', "UTF-8"); ?></a></h1>
+                <?php echo $content; ?>
+            </article>
+        </div>
+        <div class="note" id="writenote">
+            <div class="preview">
+                <button class="save button">Save</button>
+                <article class="article body">
 
-        <article class="article body"> 
-            <h1><a title="back to original page"
-                   href="<?php echo strip_tags($request_url); ?>"><?php 
-                   echo mb_convert_encoding($title, 'HTML-ENTITIES', "UTF-8"); ?></a></h1>
-
-            <?php echo $content; ?>
-
-        </article>
-
+                </article>
+            </div>
+             <textarea name="notes" id="notes"></textarea>
+        </div>
         <?php include DIR_ROOT . '/template/footer.inc.html'; ?>
+        <script type="text/javascript" charset="utf-8">
+            $('#main').split({orientation:'vertical', limit:10});
+            $('#writenote').split({orientation:'horizontal', limit:10});
+            setInterval(function(){
+                seePreview();
+            },600)
+            $('button.save').on('click',function(){
+                saveTextAsFile();
+            });
+            function seePreview(){
+                var content = $('#notes').val();
+                var converter = new Markdown.Converter(),markdownToHtml = converter.makeHtml;
+                $('div.preview article').html(markdownToHtml(content));
+            }
+            // save
+            function saveTextAsFile()
+            {
+                var style = $('style')[0].innerHTML;
+                var content = $("div.preview article").html();
+                var title = $('title').text();
+                var textToWrite = "<html><head><title>"+title+"</title><style>"+style+"</style></head><body><article>"+content+"</article></body></html>"; 
+                var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+                var fileNameToSaveAs = "mynotes.html";
+            
+                var downloadLink = document.createElement("a");
+                downloadLink.download = fileNameToSaveAs;
+                downloadLink.innerHTML = "Download File";
+                if (window.webkitURL != null)
+                {
+                    // Chrome allows the link to be clicked
+                    // without actually adding it to the DOM.
+                    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+                }
+                else
+                {
+                    // Firefox requires the link to be added to the DOM
+                    // before it can be clicked.
+                    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                    downloadLink.onclick = destroyClickedElement;
+                    downloadLink.style.display = "none";
+                    document.body.appendChild(downloadLink);
+                }
+            
+                downloadLink.click();
+            }
+        </script>
     </body>
 </html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Readability - Gracecode.com</title>
+        <?php include DIR_ROOT . '/template/header.inc.html'; ?>
+    </head>
+    <body class="bg">
+        <header>
+            <h1 id="logo"><a href="http://www.gracecode.com">無標題文檔</a></h1>
+        </header>
+
+        <div class="article body"> 
+            <h1 id="logo">RNhelper</h1>
+            <p id="desp" class="metas">Better experience on reading and translating.</p>
+            <form action="." method="get" id="form" class="search">
+                <p>
+                    <input type="text" placeholder="Enter the url which you need to read" 
+                        autocomplete="off" id="url" name="url" value="" />
+                </p>
+                <p>
+                    <input type="submit" id="submit" value="&raquo;" />
+                </p>
+            </form>
+
+<p class="align-right readability-button">
+        <a style="cursor:move;" title="Drag Me into Your Bookmark Bar" 
+           href="javascript:void(location.href='http://graceco.de/readability/?url='+encodeURIComponent(location.href));">Make Readability!</a>
+    </li>
+</p>
+            <style>
+                #form {
+                    margin: -1em auto;
+                }
+
+                #form p {
+                    text-indent: 0;
+                    font-size: 1.5em;
+                }
+
+                #form p input[type=text] {
+                    width: 100%;
+                }
+
+                body .readability-button {
+                    overflow: hiden;
+                    *zoom: 1;
+                }
+
+                body .readability-button a {
+                    margin: 2em 0 10em 0;
+                    display: inline-block;
+                    border: 1px solid #800;
+                    text-indent: 0;
+                    float: right;
+                    padding: .2em;
+                    border-radius: 3px;
+                }
+
+                body .readability-button a:hover,
+                body .readability-button a:focus {
+                    background: #800;
+                    color: #fff;
+                }
+            </style>
+        </div>
+        <?php include DIR_ROOT . '/template/footer.inc.html'; ?>
+    </body>
+</html>

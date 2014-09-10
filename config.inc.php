@@ -9,7 +9,7 @@
  */
 
 define("DIR_ROOT", dirname(__FILE__));
-define("URL_ROOT", "http://lab.gracecode.com/readability/");
+define("URL_ROOT", "http://fun.zzgary.info/RNhelper/");
 
 define("DIR_CACHE",  DIR_ROOT . '/cache');
 define("CACHE_TIME", 3600 * 24);

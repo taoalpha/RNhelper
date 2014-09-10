@@ -1,35 +1,9 @@
-# PHP Readability Library
+# RNhelper
 
-## Back the fun of reading
+## R == Read
 
-The PHP port of [Readability.js by Arc90](http://code.google.com/p/arc90labs-readability/).
+Better Experience on reading with readability.js. Thanks to [Readability-Php](https://github.com/feelinglucky/php-readability)
 
+## N == Note 
 
-## Requirements
-
-* PHP Version >= 5
-* [PHP has builded with DOM(Document Object Model)](http://www.php.net/manual/en/book.dom.php)
-
-
-## Live demo 
-
-http://graceco.de/readability/
-
-
-## Usage
-
-```
-require 'lib/Readability.inc.php';
-
-$Readability     = new Readability($html, $html_input_charset); // default charset is utf-8
-$ReadabilityData = $Readability->getContent(); // throws an exception when no suitable content is found
-
-// You can see more params by var_dump($ReadabilityData);
-echo "<h1>".$ReadabilityData['title']."</h1>";
-echo $ReadabilityData['content'];
-```
-
-
-
-PS: For Node.js port, You can [check this](https://github.com/arrix/node-readability/).
-
+You can write down your note during reading.

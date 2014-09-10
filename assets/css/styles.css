@@ -1,0 +1,327 @@
+.optimizelegibility {
+    text-rendering: optimizelegibility;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.hr {
+    display: none;
+    width: 30%;
+    margin: 2.5em auto;
+    height: 1px;
+    background: #eee;
+    overflow: hidden;
+    border: 0;
+    *font-size: 1px;
+}
+
+body>hr {
+    display: none;
+    width: 30%;
+    margin: 2.5em auto;
+    height: 1px;
+    background: #eee;
+    overflow: hidden;
+    border: 0;
+    *font-size: 1px;
+}
+
+.ul {
+    list-style: square;
+    list-style-position: inside;
+    margin: 1em 0 2em 2em;
+}
+
+.p {
+    text-align: left;
+    margin: .5em 0;
+    line-height: 1.7em;
+    text-indent: 2em;
+}
+
+.button {
+    border: 0;
+    background: #800;
+    color: #fafafa;
+    display: block;
+    padding: .3em 1em;
+    cursor: pointer;
+    font: 16px "Lora","STSong","NSimSun",serif;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+.button:hover {
+    background:#A93737;
+}
+
+.hidden {
+    display: none!important;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+a,a:link,a:visited {
+    color: #800;
+    text-decoration: none;
+    border-bottom: 1px dotted #800;
+}
+
+input[type=text] {
+    border: 1px solid #eee;
+    background: #fff;
+    padding: .3em .5em;
+    font: 16px "Lora","STSong","NSimSun",serif;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: #800;
+    font-family: "STFangsong","Fangsong";
+    text-rendering: optimizelegibility;
+}
+
+h1 {
+    font-size: 1.4em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5 {
+    font-size: 1.1em;
+}
+
+em,strong {
+    color: #800;
+}
+
+html,body {
+    font: 16px "Lora","STSong","NSimSun",serif;
+    line-height: 1.7em;
+    color: #38342b;
+    background: #fafafa;
+    border-top: 5px solid #38342b;
+    width:100%;
+    height:100%;
+    padding:0px;
+    min-width:1000px;
+}
+
+.body {
+    margin: 0 auto;
+}
+
+header {
+    margin: 50px 0;
+    margin-left: -3px;
+    overflow: hidden;
+    *zoom: 1;
+}
+
+header #logo {
+    display: block;
+    font-size: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    padding: .3em 1em .3em 1.5em;
+    background: #800;
+    vertical-align: middle;
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+
+header #logo a,header #logo a:link,header #logo a:visited,header #logo a:hover {
+    color: #fafafa;
+    text-decoration: none;
+}
+
+footer {
+    border-top: 5px solid #800;
+    background-color: #38342b;
+    clear: both;
+    overflow: hidden;
+    padding: 1em 5em;
+    color: #fafafa;
+    margin-top: 5em;
+}
+[class^="icon-"] {
+    margin-right: .3em;
+}
+
+.search {
+    padding: 1em 2em;
+}
+
+.search p {
+    text-indent: 0;
+    padding: 0 0 .5em 0;
+}
+
+.search input {
+    font-size: 1em;
+}
+
+.search input[type=submit],.search .submit {
+    border: 0;
+    background: #800;
+    color: #fafafa;
+    display: block;
+    padding: .3em 1em;
+    cursor: pointer;
+    font: 16px "Lora","STSong","NSimSun",serif;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/**
+ * Styles for read
+ */
+.article {
+    position: relative;
+    padding:20px;
+}
+
+.article h1,.article h2,.article h3,.article h4,.article h5 {
+    color: #800;
+    padding: 5px 0;
+    /*margin: 1.2em 0 .5em 0;*/
+    font-weight: normal;
+}
+
+.article h1 {
+    font-size: 1.4em;
+}
+
+.article h1:first-child {
+    font-size: 1.8em;
+    text-align: right;
+}
+
+.article h2 {
+    font-size: 1.3em;
+}
+
+.article h3 {
+    font-size: 1.2em;
+}
+
+.article h4 {
+    font-size: 1.1em;
+}
+
+.article h5 {
+    font-size: 1em;
+}
+
+.article p {
+    text-align: left;
+    margin: .5em 0;
+    line-height: 1.7em;
+    text-indent: 2em;
+}
+
+.article p.metas {
+    font-size: 1.1em;
+    padding: 0 .2em 2em 0;
+    color: #5a564d;
+    text-align: right;
+}
+
+.article p img {
+    margin: 0 auto;
+    border: 1px solid #eee;
+    padding: .5em;
+    background: #fff;
+    max-width: 85%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.article pre,.article code {
+    font: .9em Monospace,"Courier New",sans-serif;
+    padding: .5em;
+    font-weight: normal;
+    background: #eee;
+    margin: .5em 2em;
+    overflow-x: auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.article p code,.article pre code {
+    background: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.article ul,.article ol {
+    margin: 0 2em;
+    list-style-position: inside;
+}
+
+.article ul {
+    list-style-type: circle;
+}
+
+.article ol {
+    list-style-type: decimal;
+}
+
+
+/** 
+ * Styles for notes
+ */
+div.note{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+div.preview{
+    height:50%;
+    width:100%;
+}
+button.save{
+    position:absolute;
+    top:5px;
+    right:5px;
+    z-index:100;
+}
+textarea#notes{
+    width:100%;
+    height:50%;
+    border:0px;
+}
