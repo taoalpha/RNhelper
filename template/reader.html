@@ -3,14 +3,15 @@
     <head>
         <meta charset="utf-8" />
         <base href="<?php echo strip_tags($request_url); ?>" />
-        <title><?php echo mb_convert_encoding($title, "HTML-ENTITIES", "UTF-8"); ?> - Gracecode.com</title>
+        <title><?php echo mb_convert_encoding($title, "HTML-ENTITIES", "UTF-8"); ?> - RNhelper</title>
         <?php include DIR_ROOT . '/template/header.inc.html'; ?>
         <style type="text/css" media="all">
-.article{position:relative;padding:20px}.article h1,.article h2,.article h3,.article h4,.article h5{color:#800;padding:5px 0;font-weight:normal}.article h1{font-size:1.4em}.article h1:first-child{font-size:1.8em;text-align:right}.article h2{font-size:1.3em}.article h3{font-size:1.2em}.article h4{font-size:1.1em}.article h5{font-size:1em}.article p{text-align:left;margin:.5em 0;line-height:1.7em;text-indent:2em}.article p.metas{font-size:1.1em;padding:0 .2em 2em 0;color:#5a564d;text-align:right}.article p img{margin:0 auto;border:1px solid #eee;padding:.5em;background:#fff;max-width:85%;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px}.article pre,.article code{font:.9em Monospace,"Courier New",sans-serif;padding:.5em;font-weight:normal;background:#eee;margin:.5em 2em;overflow-x:auto;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px}.article p code,.article pre code{background:0;margin:0;padding:0}.article ul,.article ol{margin:0 2em;list-style-position:inside}.article ul{list-style-type:circle}.article ol{list-style-type:decimal} 
+em,strong{color:#800}.article{position:relative;padding:20px}.article h1,.article h2,.article h3,.article h4,.article h5{color:#800;padding:5px 0;font-weight:normal}.article h1{font-size:1.4em}.article h1:first-child{font-size:1.8em;text-align:right}.article h2{font-size:1.3em}.article h3{font-size:1.2em}.article h4{font-size:1.1em}.article h5{font-size:1em}.article p{text-align:left;margin:.5em 0;line-height:1.7em;text-indent:2em}.article p.metas{font-size:1.1em;padding:0 .2em 2em 0;color:#5a564d;text-align:right}.article p img{margin:0 auto;border:1px solid #eee;padding:.5em;background:#fff;max-width:85%;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px}.article pre,.article code{font:.9em Monospace,"Courier New",sans-serif;padding:.5em;font-weight:normal;background:#eee;margin:.5em 2em;overflow-x:auto;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px}.article p code,.article pre code{background:0;margin:0;padding:0}.article ul,.article ol{margin:0 2em;list-style-position:inside}.article ul{list-style-type:circle}.article ol{list-style-type:decimal} 
         </style>
     </head>
     <body class="bg" id="main">
         <div class="read">
+        <a href="http://fun.zzgary.info/RNhelper"><button class="back button">RNhelper</button></a>
             <article class="article body"> 
                 <h1><a title="back to original page" href="<?php echo strip_tags($request_url); ?>"><?php echo mb_convert_encoding($title, 'HTML-ENTITIES', "UTF-8"); ?></a></h1>
                 <?php echo $content; ?>
@@ -18,6 +19,7 @@
         </div>
         <div class="note" id="writenote">
             <div class="preview">
+                <button class="copy button"><?php if(isset($_SESSION["accessToken"])){echo("<a class='savenote' title='save to evernote' href='".preg_replace('/[?&]action=[^&]*/i', '', curPageURL())."&action=addnote'>Save to Evernote");}else{echo("<a title='Login with Evernote' href='".curPageURL()."&action=authorize'>Login with evernote");}?></a></button>
                 <button class="save button">Save</button>
                 <article class="article body">
 
@@ -27,18 +29,53 @@
         </div>
         <?php include DIR_ROOT . '/template/footer.inc.html'; ?>
         <script type="text/javascript" charset="utf-8">
+            var autoscroll = false;
+            if($('base').attr("href")==$.cookie("lasturl")){
+                //$('div.preview article').html(markdownToHtml(content));
+                $('#notes').val(localStorage.getItem("mcontent"));
+            }else{
+                localStorage.setItem("title","");
+                localStorage.setItem("content","");
+                localStorage.setItem("mcontent","");
+                $.cookie("lasturl",$("base").attr("href"));
+            }
             $('#main').split({orientation:'vertical', limit:10});
             $('#writenote').split({orientation:'horizontal', limit:10});
             setInterval(function(){
                 seePreview();
-            },600)
+                //if($('div.preview article').height()>$('div.preview').height() && autoscroll){
+                //    $('div.preview').scrollTop($('div.preview article').height());
+                //    $('div.read').scrollTop($('div.preview article').height()-150);
+                //}
+            },1200)
             $('button.save').on('click',function(){
                 saveTextAsFile();
+            });
+            $('button.copy a.savenote').on('click',function(e){
+                e.preventDefault();
+                var baseurl = $('base').attr("href");
+                var title = localStorage.getItem("title");
+                var content = localStorage.getItem("content");
+                $.post("http://fun.zzgary.info/RNhelper/savenote.php",{"action":"addnote","url":baseurl,"title":title,"content":content},function(data){
+                    console.log(data);
+                    if(data=="justsaved"){
+                        alert("Saved to evernote!");
+                    }
+                });
+            });
+            $('div.read,div.preview').on('click',function(){
+                autoscroll = false;         
+            });
+            $('textarea').on('keydown',function(e){
+                autoscroll = true;
             });
             function seePreview(){
                 var content = $('#notes').val();
                 var converter = new Markdown.Converter(),markdownToHtml = converter.makeHtml;
                 $('div.preview article').html(markdownToHtml(content));
+                localStorage.setItem('title',$('title').text());
+                localStorage.setItem('content',markdownToHtml(content));
+                localStorage.setItem('mcontent',content);
             }
             // save
             function saveTextAsFile()
@@ -46,8 +83,8 @@
                 var style = $('style')[0].innerHTML;
                 var content = $("div.preview article").html();
                 var title = $('title').text();
-                var textToWrite = "<html><head><title>"+title+"</title><style>"+style+"</style></head><body><article>"+content+"</article></body></html>"; 
-                var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+                var textToWrite = "<html><head><meta http-equiv=Content-Type content=text/html; charset=utf-8 /><title>"+title+"</title><style>"+style+"</style></head><body><article class='article body'>"+content+"</article></body></html>"; 
+                var textFileAsBlob = new Blob([textToWrite], {type:'text/html;charset=utf-8'});
                 var fileNameToSaveAs = "mynotes.html";
             
                 var downloadLink = document.createElement("a");
@@ -71,6 +108,31 @@
             
                 downloadLink.click();
             }
+            // image auto copy
+            $('div.read').on('click','img',function(e){
+                e.preventDefault()
+                e.stopPropagation()
+                var temp = $('textarea').val()
+                var imgurl = $(this).attr('src')
+                var imgalt = $(this).attr('alt')
+                $('textarea').val(temp+"\n !["+imgalt+"]("+imgurl+")")
+            })
+            // link auto copy
+            $('div.read article').on('click','a',function(e){
+                e.preventDefault()
+                e.stopPropagation()
+                var temp = $('textarea').val()
+                if($(this).find('img').length) {
+                    var alink = $(this).attr('href')
+                    var imgurl = $(this).find('img').attr('src').split("?")[0]
+                    var imgalt = $(this).find('img').attr('alt')
+                    $('textarea').val(temp+"\n [!["+imgalt+"]("+imgurl+")]("+alink+")")
+                }else{
+                    var alink = $(this).attr('href').split("?")[0]
+                    var atitle = $(this).attr('title')?$(this).attr("title"):$(this).text()
+                    $('textarea').val(temp+" ["+atitle+"]("+alink+")")
+                }
+            })
         </script>
     </body>
 </html>

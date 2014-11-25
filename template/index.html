@@ -51,6 +51,9 @@
                     padding: .2em;
                     border-radius: 3px;
                 }
+                body a.evernotelogin{
+                    right:120px;
+                }
 
                 body a.readability-button:hover,
                 body a.readability-button:focus {
@@ -68,12 +71,13 @@
     </head>
     <body class="bg">
         <div class="article body"> 
-            <h1 class="button">RNhelper</h1>
+            <h1 class="button"><a href="#">RNhelper</a></h1>
             <p id="desp" class="metas">Better experience on writing notes during reading!</p>
             <form action="." method="get" id="form" class="search">
                 <input type="text" placeholder="Enter the url which you need to read" autocomplete="off" id="url" name="url" value="" />
                 <input type="submit" id="submit" value="Go &raquo;" />
             </form>
+            <?php if(isset($_SESSION["accessToken"])){echo("<a class='readability-button evernotelogin' style='cursor:pointer;' title='Welcome' href='.'>Welcome, ".getUser()."!");}else{echo("<a class='readability-button evernotelogin' style='cursor:pointer;' title='Login with Evernote' href='?action=authorize'>Login with evernote");}?></a>
         <a class="readability-button" style="cursor:move;" title="Drag Me into Your Bookmark Bar" href="javascript:void(location.href='http://fun.zzgary.info/RNhelper/?url='+encodeURIComponent(location.href));">RNhelper!</a>
         </div>
         <div class="view">
