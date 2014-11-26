@@ -43,10 +43,10 @@ em,strong{color:#800}.article{position:relative;padding:20px}.article h1,.articl
             $('#writenote').split({orientation:'horizontal', limit:10});
             setInterval(function(){
                 seePreview();
-                //if($('div.preview article').height()>$('div.preview').height() && autoscroll){
-                //    $('div.preview').scrollTop($('div.preview article').height());
+                if($('div.preview article').height()>$('div.preview').height() && autoscroll){
+                    $('div.preview').scrollTop($('div.preview article').height());
                 //    $('div.read').scrollTop($('div.preview article').height()-150);
-                //}
+                }
             },1200)
             $('button.save').on('click',function(){
                 saveTextAsFile();
@@ -116,6 +116,7 @@ em,strong{color:#800}.article{position:relative;padding:20px}.article h1,.articl
                 var imgurl = $(this).attr('src')
                 var imgalt = $(this).attr('alt')
                 $('textarea').val(temp+"\n !["+imgalt+"]("+imgurl+")")
+                $('textarea').focus()
             })
             // link auto copy
             $('div.read article').on('click','a',function(e){
@@ -127,10 +128,12 @@ em,strong{color:#800}.article{position:relative;padding:20px}.article h1,.articl
                     var imgurl = $(this).find('img').attr('src').split("?")[0]
                     var imgalt = $(this).find('img').attr('alt')
                     $('textarea').val(temp+"\n [!["+imgalt+"]("+imgurl+")]("+alink+")")
+                    $('textarea').focus()
                 }else{
                     var alink = $(this).attr('href').split("?")[0]
                     var atitle = $(this).attr('title')?$(this).attr("title"):$(this).text()
                     $('textarea').val(temp+" ["+atitle+"]("+alink+")")
+                    $('textarea').focus()
                 }
             })
         </script>

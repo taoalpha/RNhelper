@@ -66,7 +66,7 @@ $request_url = getRequestParam("url",  "");
 $output_type = strtolower(getRequestParam("type", "html"));
 
 // 如果 URL 参数不正确，则跳转到首页
-if (!preg_match('/^http:\/\//i', $request_url) ||
+if (!preg_match('/^(http|https):\/\//i', $request_url) ||
     !filter_var($request_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
     include 'template/index.html';
     exit;
